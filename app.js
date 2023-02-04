@@ -33,7 +33,7 @@ app.use("/api/news", newsRouter);
 const port =  5000;
 
 app.get('*', (res) =>{
-  res.sendFile(path.join(__dirname+'/public/index.html'));
+  res.sendFile(path.join(__dirname,'public','index.html'));
 });
 
 app.listen(port, () =>{
