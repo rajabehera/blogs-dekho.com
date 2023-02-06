@@ -14,7 +14,7 @@ const app = express();
 //   };
   
   app.use(cors({
-    origin: 'http://192.168.1.131:5000'
+    // origin: 'http://192.168.1.131:5000'
   }));
 
 app.use(express.json());
@@ -32,7 +32,7 @@ app.use("/api/news", newsRouter);
 
 const port =  5000;
 
-app.get('*', (res) =>{
+app.get('*', (req, res) =>{
   res.sendFile(path.join(__dirname,'public','index.html'));
 });
 
