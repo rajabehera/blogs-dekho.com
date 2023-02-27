@@ -14,7 +14,7 @@ const app = express();
 //   };
   
   app.use(cors({
-    // origin: 'http://192.168.1.131:5000'
+    // origin: 'http://192.168.1.4:5000'
   }));
 
 app.use(express.json());

@@ -60,7 +60,7 @@ module.exports = {
   },
   updateUserStatus: (data, callBack) => {
     pool.query(
-      `update user_info set status=? where id = 2`,
+      `update user_info set status=? where id = ?`,
       [
        data.status,
       ],
