@@ -2,11 +2,12 @@ const pool = require("../../config/database");
 module.exports = {
   createNews: (data, callBack) => {
     pool.query(
-      `insert into blog_table(title,  summary, hero_img, user_id, category_id, status) 
-                values(?,?,?,?,?,?)`,
+      `insert into blog_table(title,  summary, content, hero_img, user_id, category_id, status) 
+                values(?,?,?,?,?,?,?)`,
       [
         data.title,
         data.summary,
+        data.content,
         data.hero_img,
         data.user_id,
         data.category_id,
@@ -44,12 +45,13 @@ module.exports = {
   createComment: (data, callBack) => {
     console.log('dekhona',data);
     pool.query(
-      `insert into blog_comment(blog_id, comment, user_id) 
-                values(?,?,?)`,
+      `insert into blog_comment(blog_id, comment, user_id, published_at) 
+                values(?,?,?,?)`,
       [
         data.blog_id,
         data.comment,
         data.user_id,
+        data.published_at
       
       ],
       (error, results, fields) => {
@@ -134,7 +136,7 @@ module.exports = {
         if (error) {
           return callBack(error);
         }
-        console.log('-0-0-0-0-0-0-0-0-', results);
+        console.log('-0-0-0-1-0-0-0-0-', results);
         return callBack(null, results);
       }
     );
@@ -173,7 +175,7 @@ module.exports = {
   deleteLike: (data, callBack) => {
     pool.query(
       `delete from blog_like where user_id = ?`,
-      [data.id],
+      [data.user_id],
       (error, results, fields) => {
         if (error) {
           return callBack(error);
