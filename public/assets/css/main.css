@@ -485,7 +485,7 @@ section {
   font-weight: 600;
   font-family: var(--font-secondary);
   color: rgba(0, 0, 0,  0.4);
-  margin-bottom:  10px 0;
+  margin:  10px 0;
 }
 
 @media (max-width: 768px) {
