@@ -15,9 +15,6 @@
   scroll-behavior: smooth;
 }
 
-body {
-  color: rgba(var(--color-primary-rgb), 1);
-}
 
 a {
   color: #000;
