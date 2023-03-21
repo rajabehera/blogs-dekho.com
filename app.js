@@ -2,9 +2,9 @@
 require("dotenv").config();
 
 
+const cookieParser = require("cookie-parser");
 const express = require("express");
 const cors = require('cors');
-const fs = require('fs')
 const path = require('path');
 
 const app = express();
@@ -16,7 +16,7 @@ const app = express();
   app.use(cors({
     // origin: 'http://192.168.1.4:5000'
   }));
-
+app.use(cookieParser());
 app.use(express.json());
 const userRouter = require("./api/users/user.router");
 const newsRouter = require("./api/news/news.router");
