@@ -6,6 +6,7 @@ const {
   getUsers,
   updateUser,
   updateUserStatus,
+  updateUserVerified,
   deleteUser,
   getUserByUserEmail,
 } = require("./user.service");
@@ -106,6 +107,19 @@ module.exports = {
   updateUsersStatus: (req, res) => {
     const body = req.body;
     updateUserStatus(body, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      return res.status(200).json({
+        success: 1,
+        message: "updated successfully",
+      });
+    });
+  },
+   updateUsersVerified: (req, res) => {
+    const body = req.body;
+    updateUserVerified(body, (err, results) => {
       if (err) {
         console.log(err);
         return;

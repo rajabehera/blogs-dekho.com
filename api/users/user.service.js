@@ -3,7 +3,7 @@ const pool = require("../../config/database");
 module.exports = {
   create: (data, callBack) => {
     pool.query(
-      `insert into user_info(name, dob,email ,password) 
+      `insert into user_info(name, dob, email, password) 
                 values(?,?,?,?)`,
       [
         data.name, 
@@ -21,7 +21,7 @@ module.exports = {
   },
   getUsers: (callBack) => {
     pool.query(
-      `select id, email, name, status from user_info`,
+      `select id, email, name, role, status, verified from user_info`,
       [],
       (error, results, fields) => {
         if (error) {
@@ -33,7 +33,7 @@ module.exports = {
   },
   getUserById: (id, callBack) => {
     pool.query(
-      `select id,  email from user_info where id = ?`,
+      `select id,  email, name from user_info where id = ?`,
       [id],
       (error, results, fields) => {
         if (error) {
@@ -54,6 +54,22 @@ module.exports = {
         if (error) {
           return callBack(error);
         }
+        console.log('ass---pass',data)
+        return callBack(null, results);
+      }
+    );
+  },
+  updateUserVerified: (data, callBack) => {
+    pool.query(
+      `update user_info set verified=? where id = ?`,
+      [
+       data.verified,
+       data.id,
+      ],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
         return callBack(null, results);
       }
     );
@@ -63,6 +79,7 @@ module.exports = {
       `update user_info set status=? where id = ?`,
       [
        data.status,
+       data.id,
       ],
       (error, results, fields) => {
         if (error) {
@@ -92,6 +109,10 @@ module.exports = {
         if (error) {
           return callBack(error);
         }
+        if(!results){
+          return callBack(results);
+        }
+        console.log('-------------results----------',results[0])
         return callBack(null, results[0]);
       }
     );

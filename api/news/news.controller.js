@@ -1,10 +1,13 @@
-const { getNews,getCategory,createNews,createCat,createComment,getComment,createLike,getLike,updateNews,updateNewsStatus,deleteNews,deleteLike, getNewsByUserId,getNewsById
+const { getNews,getCategory,createNews,createCat,createComment,getComment,createLike,getLike,updateNews,updateNewsStatus,updateNewsStatusOfBlog,deleteNews,deleteLike, getNewsByUserId,getNewsById
 } = require("./news.service");
 
 module.exports = {
   createNews: (req, res) => {
     const body = req.body;
     console.log(body);
+    if(!body.title || !body.summary || !body.content || !body.category_id || !body.hero_img){
+      return res.status(400).json({msg: "Fill all Fields",success:"3"});
+    }
     createNews(body, (err, results) => {
       
       if (err) {
@@ -61,7 +64,7 @@ module.exports = {
     const body = req.body;
     console.log(body);
     createLike(body, (err, results) => {
-      console.log('=3-------1=',results);
+      console.log('=3---like---1=',results);
       if (err) {
         console.log(err);
         return res.status(500).json({
@@ -164,8 +167,21 @@ module.exports = {
   },
   updateNews: (req, res) => {
     const body = req.body;
-  
+    console.log(body);
     updateNews(body, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      return res.json({
+        success: 1,
+        message: "updated successfully oooo",
+      });
+    });
+  },
+  updateNewsStatus: (req, res) => {
+    const body = req.body;
+    updateNewsStatus(body, (err, results) => {
       if (err) {
         console.log(err);
         return;
@@ -176,9 +192,9 @@ module.exports = {
       });
     });
   },
-  updateNewsStatus: (req, res) => {
+  updateNewsStatusOfBlog: (req, res) => {
     const body = req.body;
-    updateNewsStatus(body, (err, results) => {
+    updateNewsStatusOfBlog(body, (err, results) => {
       if (err) {
         console.log(err);
         return;
@@ -224,7 +240,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: "News deleted successfully",
+        message: "Like deleted successfully",
         
       });
     });

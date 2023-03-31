@@ -1,4 +1,4 @@
-const { getNews, getCategory, createNews, createCat, createComment, getComment, getLike, createLike, updateNews, updateNewsStatus,deleteNews, deleteLike, getNewsByUserId, getNewsById
+const { getNews, getCategory, createNews, createCat, createComment, getComment, getLike, createLike, updateNews, updateNewsStatus,updateNewsStatusOfBlog,deleteNews, deleteLike, getNewsByUserId, getNewsById
 } = require("./news.controller");
 
 const router = require("express").Router();
@@ -45,6 +45,8 @@ router.post("/addcomment", createComment);
 router.post("/addlike", createLike);
 router.put("/update/:id", updateNews);
 router.put("/updatestatus/:id",  updateNewsStatus);
+router.put("/updatestatusblogs/:id",  updateNewsStatusOfBlog);
+
 router.put("/delete/:id", deleteNews);
 router.put("/adddislike/:id", deleteLike);
 

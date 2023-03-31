@@ -2,8 +2,8 @@ const pool = require("../../config/database");
 module.exports = {
   createNews: (data, callBack) => {
     pool.query(
-      `insert into blog_table(title,  summary, content, hero_img, user_id, category_id, status) 
-                values(?,?,?,?,?,?,?)`,
+      `insert into blog_table(title,  summary, content, hero_img, user_id, category_id, status, published_at) 
+                values(?,?,?,?,?,?,?,?)`,
       [
         data.title,
         data.summary,
@@ -12,6 +12,7 @@ module.exports = {
         data.user_id,
         data.category_id,
         data.status,
+        data.published_at,
       ],
       (error, results, fields) => {
         if (error) {
@@ -144,13 +145,44 @@ module.exports = {
   updateNews: (data, callBack) => {
     pool.query(
       `update blog_table set title=?, summary
-      =?, hero_img=? where id = ?`,
+      =?, content=?, category_id=?, hero_img=? where id = ?`,
       [
         data.title,
-        
         data.summary,
+        data.content,
+        data.category_id,
         data.hero_img,
         data.id
+      ],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
+  updateNewsStatus: (data, callBack) => {
+    pool.query(
+      `update blog_table set status=? where id = ?`,
+      [
+        data.status,
+        data.id,
+      ],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
+  updateNewsStatusOfBlog: (data, callBack) => {
+    pool.query(
+      `update blog_table set status=? where user_id = ?`,
+      [
+        data.status,
+        data.user_id,
       ],
       (error, results, fields) => {
         if (error) {
