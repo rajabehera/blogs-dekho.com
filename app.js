@@ -10,7 +10,7 @@ const path = require('path');
 const app = express();
 // var corsOptions = {
 //     //  origin: "http://128.199.20.72/"
-//         origin: "http://localhost:5000/"
+//         origin: "http://192.168.1.4:5000/"
 //   };
   
   app.use(cors({
